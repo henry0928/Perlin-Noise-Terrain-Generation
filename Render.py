@@ -3,6 +3,7 @@ import random
 import perlin2D
 import matplotlib.pyplot as plt
 from ursina import *
+from ursina.prefabs.first_person_controller import FirstPersonController
 from ursina.shaders import basic_lighting_shader
 from img_Wrapper import imgWrapper
 
@@ -37,7 +38,8 @@ def perlin():
     y = 256
     space = create_inputspace(x,y)
     scale = random.randint(20,40)
-    print(scale)
+    debug_info = "Scale: " + str(scale)
+    print(debug_info)
     for i in range(x):
         for j in range(y):
             space[i][j] = map_to_0_255(perlin2D.eval(i/scale,j/scale, 2, 0.5))
@@ -83,23 +85,44 @@ def generate_texture_map(_map):
         for j in range(_map.gety()):
             temp = texture_file[texture_index(int(_map.getvalue(i,j)))]
             colordata[i][j] = temp.getpixel(i,j)
-        print("still running")
     space_color = imgWrapper(colordata)
     space_color.save_img('render/color.png')
+
+def update():
+    player_height = player.y  # 保存玩家的当前高度
+
+    # 将玩家的 y 坐标设置到地形表面
+    hit_info = raycast(player.world_position, player.down, distance=2, ignore=[player, ])
+    if hit_info.hit:
+        player.y = hit_info.world_point.y + 1  # 适当调整高度
+
+    # 避免在穿越地形时突然下降
+    if player.y < player_height:
+        player.y = player_height
+
+def input(key):
+    if key == 'escape':
+        application.quit()
     
     
 
 space_map = perlin()
 generate_height_map(space_map)
-print("height_map pass")
+print("Height_map Pass")
 generate_texture_map(space_map)
-print("color_map pass")
+print("Color_map Pass")
 # create window
 app = Ursina(title='Procedural Terrain Generation', borderless=False)
+
+# create first person view
+player = FirstPersonController()
 
 # create terrain entity
 terrain = Terrain(heightmap='render/height.png', skip=8)
 terrainEntity = Entity(model=terrain, scale=(100, 15,100), texture='render/color.png', shader=basic_lighting_shader)
+
+# set player origin position
+player.origin = terrainEntity.origin
 
 # create skybox and camera
 Sky()

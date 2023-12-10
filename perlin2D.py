@@ -27,7 +27,7 @@ def eval(x, y, lacunarity, persistance) :
    # first do p12 and then p43
    # final do pxy
    pxy = 0 
-   for i in range(4):
+   for i in range(5):
       x = x * math.pow(lacunarity, i)
       y = y * math.pow(lacunarity, i)
       x_floor = math.floor(x)
