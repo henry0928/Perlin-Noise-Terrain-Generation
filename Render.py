@@ -40,28 +40,26 @@ def perlin():
     print(scale)
     for i in range(x):
         for j in range(y):
-            space[i][j] = map_to_0_255(perlin2D.eval(i/scale,j/scale))
+            space[i][j] = map_to_0_255(perlin2D.eval(i/scale,j/scale, 2, 0.5))
     space_map = map(space,x,y)
     
     return space_map
-    # plt.xlabel('x')
-    # plt.ylabel('y')
-    # plt.imshow(space, cmap = 'gray', vmin = 0, vmax = 255)
-    # plt.show()
 
 def texture_index(value):
     if value < 90 :
         return 0
-    elif value < 103 :
+    elif value < 96 :
         return 1
-    elif value < 127 :
+    elif value < 104 :
         return 2
-    elif value < 140 :
+    elif value < 130 :
         return 3
-    elif value < 180 :
+    elif value < 155 :
         return 4
-    else :
+    elif value < 180 :
         return 5
+    else :
+        return 6
 
 def generate_height_map(_map):
     space_height = imgWrapper(_map.getMdata().tolist())
@@ -71,8 +69,8 @@ def generate_texture_map(_map):
     texture_range = []
     colordata = [[_map.getMdata()[i, j] for j in range(_map.gety())] for i in range(_map.getx())]
     # colordata = _map.getMdata()
-    texture_file = [imgWrapper('Texture/water.png'), imgWrapper('Texture/sand.png'), imgWrapper('Texture/rock1.png'), imgWrapper('Texture/rock3.png')
-                    , imgWrapper('Texture/grass.png'), imgWrapper('Texture/snow.png')]
+    texture_file = [imgWrapper('Texture/water1.jpg'), imgWrapper('Texture/Sand1.jpg'), imgWrapper('Texture/Sand.png'), imgWrapper('Texture/Grass1.jpg') 
+                    , imgWrapper('Texture/Grass2.jpg'), imgWrapper('Texture/grass.png'), imgWrapper('Texture/snow2.jpg')]
     
     # for i in range(5):
     #     temp_range = []
