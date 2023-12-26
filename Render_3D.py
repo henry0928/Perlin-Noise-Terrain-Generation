@@ -23,11 +23,15 @@ def get_texture(value) :
 def map_to_0_255(value):
     new_value = (value + 1) * 255 / 2
     return int(new_value)
+
+def input(key):
+    if key == 'escape':
+        application.quit()
     
 if __name__ == '__main__':
     x = 16
     y = 16
-    z = 30
+    z = 10
     terrain = np.zeros((x,y,z))
     # terrain = terrain.astype('S')
     scale = random.randint(28,40)
@@ -43,10 +47,14 @@ if __name__ == '__main__':
         for j in range(y):
             for k in range(z):
                 if terrain[i][j][k] > -0.2 or terrain[i][j][k] < -0.7 :
-                    Entity(model='Cube', scale=(1,1,1), position=Vec3(i,k,j), texture=get_texture(k), shader=basic_lighting_shader) 
+                    p_x = i
+                    p_y = k 
+                    p_z = j
+                    Entity(model='Cube', scale=(1,1,1), position=Vec3(i,k,j), texture=get_texture(k), shader=basic_lighting_shader, collider='box')
+    floor = Entity(model='plane', scale=(100, 1, 100), texture='Texture/water1.jpg', collider='box')             
     # create skybox and camera
-    Sky()
+    # Sky()
     EditorCamera()
-
+    player = FirstPersonController(collider='box')
     # run engine
     app.run()
