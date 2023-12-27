@@ -14,7 +14,7 @@ def update(idx):
     ax.clear()
     ax.imshow(terrain_list[idx], cmap='gray', vmin=0, vmax=255)
     time.sleep(0.1)
-    ax.set_title(f"seed = 1277, size = 40, scale = 10, octave = (3, 2.0, 0.5), frame {idx}")
+    ax.set_title(f"size =128*128*40, scale = 10, octave = (3, 2.0, 0.5), frame {idx}")
 
 def run(x, y, z, scale, pipe_fd):
     # terrain = np.zeros((x,y))

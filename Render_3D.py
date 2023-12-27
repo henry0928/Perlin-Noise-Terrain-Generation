@@ -8,18 +8,19 @@ from ursina.prefabs.first_person_controller import FirstPersonController
 from ursina.shaders import basic_lighting_shader
 
 def get_texture(value) :
-    if value <= 5 : 
+    if value <= 1 : 
         return "Texture_3D/rock1.jpg"
-    elif value <= 10: 
+    elif value <= 3: 
         return "Texture_3D/dirt.png"
-    elif value <= 15 : 
+    elif value <= 4 : 
         return "Texture_3D/sand2.jpg"
-    elif value <= 20 : 
+    elif value <= 6 : 
         return "Texture_3D/grass1.jpg"
-    elif value <= 25 :
+    elif value <= 8 :
         return "Texture_3D/grass2.jpg"
     else : 
         return "Texture_3D/grass3.jpg"
+
 def map_to_0_255(value):
     new_value = (value + 1) * 255 / 2
     return int(new_value)
@@ -27,6 +28,9 @@ def map_to_0_255(value):
 def input(key):
     if key == 'escape':
         application.quit()
+    if key == 'tab':
+            ec.enabled = not ec.enabled
+            player.enabled = not player.enabled
     
 if __name__ == '__main__':
     x = 16
@@ -46,15 +50,16 @@ if __name__ == '__main__':
     for i in range (x):
         for j in range(y):
             for k in range(z):
-                if terrain[i][j][k] > -0.2 or terrain[i][j][k] < -0.7 :
+                if (terrain[i][j][k] < -0.2 and terrain[i][j][k] > -0.3) or (terrain[i][j][k] < 0.5 and terrain[i][j][k] > 0.3) :
                     p_x = i
                     p_y = k 
                     p_z = j
                     Entity(model='Cube', scale=(1,1,1), position=Vec3(i,k,j), texture=get_texture(k), shader=basic_lighting_shader, collider='box')
     floor = Entity(model='plane', scale=(100, 1, 100), texture='Texture/water1.jpg', collider='box')             
     # create skybox and camera
-    # Sky()
-    EditorCamera()
-    player = FirstPersonController(collider='box')
+    Sky()
+    ec = EditorCamera()
+    ec.enabled = False
+    player = FirstPersonController(x=p_x, y=p_y+1, z=p_z, collider='box', enabled=True)
     # run engine
     app.run()

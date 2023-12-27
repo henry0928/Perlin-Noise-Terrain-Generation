@@ -89,9 +89,10 @@ def perlin():
         for j in range(y):
             perlin_value = perlin2D.eval(i/scale,j/scale, 2, 0.5)
             if mode != 'island':
-                perlin_value = map_to_0_255(smooth(more_curve(perlin_value),2))
+                # perlin_value = map_to_0_255(smooth(more_curve(perlin_value),2))
+                perlin_value = map_to_0_255(perlin_value)
             else:
-                perlin_value = heightCurve(perlin_value+0.5,3)
+                perlin_value = heightCurve(perlin_value+0.4,2)
                 perlin_value = perlin_value * falloff(min(i, j, 256 - i, 256 - j) / 256, 3, 0.1)
                 perlin_value = int(perlin_value * 180.0)
                 # check value validation
@@ -132,11 +133,11 @@ def texture_index(value):
         return 2
     elif value < 110 : # Grass1
         return 3
-    elif value < 127 : # Grass1
+    elif value < 123 : # Grass1
         return 4
-    elif value < 165 : # Grass5
+    elif value < 150 : # Grass5
         return 5
-    elif value < 188 : # Grass2
+    elif value < 170 : # rock2
         return 6
     else : # snow2
         return 7
@@ -188,8 +189,6 @@ def generate_texture_map(_map):
 def input(key):
     if key == 'escape':
         application.quit()
-    
-    
 
 space_map = perlin()
 generate_height_map(space_map)
@@ -203,11 +202,8 @@ app = Ursina(title='Procedural Terrain Generation', borderless=False)
 player = FirstPersonController()
 
 # create terrain entity
-terrain = Terrain(heightmap='render/height.png', skip=8)
+terrain = Terrain(heightmap='render/height.png', skip=1)
 terrainEntity = Entity(model=terrain, scale=(100, 17, 100), texture='render/color.png', shader=basic_lighting_shader)
-
-# # set player origin position
-# player.origin = terrainEntity.origin
 
 # create skybox and camera
 Sky()
