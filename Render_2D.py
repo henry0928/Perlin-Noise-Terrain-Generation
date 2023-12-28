@@ -76,10 +76,11 @@ def island_mode(value):
         return value
 
 def perlin():
-    x = 256
-    y = 256
+    x = 512
+    y = 512
     space = create_inputspace(x,y)
-    scale = random.randint(28,40)
+    # scale = random.randint(28,40)
+    scale = 100
     debug_info = "Scale: " + str(scale)
     print(debug_info)
     mode = sys.argv[1]
@@ -93,7 +94,7 @@ def perlin():
                 perlin_value = map_to_0_255(perlin_value)
             else:
                 perlin_value = heightCurve(perlin_value+0.4,2)
-                perlin_value = perlin_value * falloff(min(i, j, 256 - i, 256 - j) / 256, 3, 0.1)
+                perlin_value = perlin_value * falloff(min(i, j, 512 - i, 512 - j) / 512, 3, 0.1)
                 perlin_value = int(perlin_value * 180.0)
                 # check value validation
                 if perlin_value < 0:
@@ -119,7 +120,7 @@ def texture_index_island(value):
         return 4
     elif value < 90 : # Grass5
         return 5
-    elif value < 105 : # rock2
+    elif value < 125 : # rock2
         return 6
     else : # snow2
         return 7
@@ -203,7 +204,7 @@ player = FirstPersonController()
 
 # create terrain entity
 terrain = Terrain(heightmap='render/height.png', skip=1)
-terrainEntity = Entity(model=terrain, scale=(100, 17, 100), texture='render/color.png', shader=basic_lighting_shader)
+terrainEntity = Entity(model=terrain, scale=(100, 22, 100), texture='render/color.png', shader=basic_lighting_shader)
 
 # create skybox and camera
 Sky()
