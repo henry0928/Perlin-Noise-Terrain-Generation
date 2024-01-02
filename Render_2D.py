@@ -79,7 +79,7 @@ def perlin():
     x = 512
     y = 512
     space = create_inputspace(x,y)
-    # scale = random.randint(28,40)
+    layer = 3
     scale = 100
     debug_info = "Scale: " + str(scale)
     print(debug_info)
@@ -88,7 +88,7 @@ def perlin():
     print(debug_info)
     for i in range(x):
         for j in range(y):
-            perlin_value = perlin2D.eval(i/scale,j/scale, 2, 0.5)
+            perlin_value = perlin2D.eval(i/scale,j/scale, 2, 0.5, layer)
             if mode != 'island':
                 # perlin_value = map_to_0_255(smooth(more_curve(perlin_value),2))
                 perlin_value = map_to_0_255(perlin_value)

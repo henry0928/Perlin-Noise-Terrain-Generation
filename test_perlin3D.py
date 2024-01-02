@@ -1,5 +1,4 @@
 import numpy as np
-import random
 import time
 import perlin3D
 from multiprocessing import Process, Pipe, Queue
@@ -36,7 +35,7 @@ if __name__ == '__main__':
     y = 128
     z = 40
     terrain_list = []
-    scale = random.randint(28,40)
+    scale = 40
     start_time = time.time()
     for k in range(z):
         terrain = np.zeros((x,y))

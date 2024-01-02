@@ -17,7 +17,7 @@ def gradient(x, y) :
 
    return _array
 
-def eval(x, y, lacunarity, persistance) :
+def eval(x, y, lacunarity, persistance, time) :
    #  p4(x_floor, y_ceiling)   p43     p3(x_ceiling, y_ceiling)
    #
    #                           pxy(x,y)  
@@ -27,7 +27,6 @@ def eval(x, y, lacunarity, persistance) :
    # first do p12 and then p43
    # final do pxy
    pxy = 0 
-   time = 3 
    for i in range(time):
       x = x * math.pow(lacunarity, i)
       y = y * math.pow(lacunarity, i)

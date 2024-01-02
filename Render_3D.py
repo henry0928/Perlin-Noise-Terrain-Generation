@@ -39,7 +39,7 @@ if __name__ == '__main__':
     terrain = np.zeros((x,y,z))
     # terrain = terrain.astype('S')
     # scale = random.randint(28,40)
-    scale = 100
+    scale = 40
     for k in range(z):
         for i in range(x):
             for j in range(y):
