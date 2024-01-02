@@ -39,7 +39,7 @@ if __name__ == '__main__':
     terrain = np.zeros((x,y,z))
     # terrain = terrain.astype('S')
     # scale = random.randint(28,40)
-    scale = 40
+    scale = 50
     for k in range(z):
         for i in range(x):
             for j in range(y):
@@ -51,14 +51,14 @@ if __name__ == '__main__':
     for i in range (x):
         for j in range(y):
             for k in range(z):
-                # if terrain[i][j][k] < -0.2 :
+                # if (terrain[i][j][k] < -0.25) or ( terrain[i][j][k] > 0) :
                 #     p_x = i 
                 #     p_y = k
                 #     p_z = j 
                 #     Entity(model='Cube', scale=(1,1,1), position=Vec3(i,k,j), texture=get_texture(k), shader=basic_lighting_shader, collider='box')
                 if (terrain[i][j][k] < -0.1 and terrain[i][j][k] > -0.2) \
                     or (terrain[i][j][k] < 0.5 and terrain[i][j][k] > 0.1) \
-                    or (terrain[i][j][k] < -0.3 and terrain[i][j][k] > -0.4):
+                    or (terrain[i][j][k] < -0.3 and terrain[i][j][k] > -0.5):
                     p_x = i
                     p_y = k 
                     p_z = j
