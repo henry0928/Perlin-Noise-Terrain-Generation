@@ -33,9 +33,9 @@ def input(key):
             player.enabled = not player.enabled
     
 if __name__ == '__main__':
-    x = 16
-    y = 16
-    z = 10
+    x = 10
+    y = 10
+    z = 35
     terrain = np.zeros((x,y,z))
     # terrain = terrain.astype('S')
     # scale = random.randint(28,40)
@@ -51,18 +51,19 @@ if __name__ == '__main__':
     for i in range (x):
         for j in range(y):
             for k in range(z):
-                # if (terrain[i][j][k] < -0.25) or ( terrain[i][j][k] > 0) :
+                # if terrain[i][j][k] < -0.25 :
                 #     p_x = i 
                 #     p_y = k
                 #     p_z = j 
                 #     Entity(model='Cube', scale=(1,1,1), position=Vec3(i,k,j), texture=get_texture(k), shader=basic_lighting_shader, collider='box')
-                if (terrain[i][j][k] < -0.1 and terrain[i][j][k] > -0.2) \
+                if (terrain[i][j][k] < -0.05 and terrain[i][j][k] > -0.2) \
                     or (terrain[i][j][k] < 0.5 and terrain[i][j][k] > 0.1) \
-                    or (terrain[i][j][k] < -0.3 and terrain[i][j][k] > -0.5):
+                    or (terrain[i][j][k] < -0.3 and terrain[i][j][k] > -0.6):
                     p_x = i
                     p_y = k 
                     p_z = j
-                    Entity(model='Cube', scale=(1,1,1), position=Vec3(i,k,j), texture=get_texture(k), shader=basic_lighting_shader, collider='box')
+                    # Entity(model='Cube', scale=(1,1,1), position=Vec3(i,k,j), texture=get_texture(k), shader=basic_lighting_shader, collider='box')
+                    Entity(model='Cube', scale=(1,1,1), position=Vec3(i,k,j), texture="Texture_3D/rock1.jpg", shader=basic_lighting_shader, collider='box')
     floor = Entity(model='plane', scale=(100, 1, 100), texture='Texture/water1.jpg', collider='box')             
     # create skybox and camera
     Sky()

@@ -13,21 +13,7 @@ def update(idx):
     ax.clear()
     ax.imshow(terrain_list[idx], cmap='gray', vmin=0, vmax=255)
     time.sleep(0.1)
-    ax.set_title(f"size =128*128*40, scale = 10, octave = (3, 2.0, 0.5), frame {idx}")
-
-def run(x, y, z, scale, pipe_fd):
-    # terrain = np.zeros((x,y))
-    terrain = []
-    row_terrain = []
-    k = z/scale 
-    for i in range(x):
-        row_terrain = []
-        for j in range(y):
-            row_terrain.append(map_to_0_255(perlin3D.eval(i/scale, j/scale, k, 2, 0.5)))
-            # terrain[i][j] = map_to_0_255(perlin3D.eval(i/scale, j/scale, k, 2, 0.5))
-        terrain.append(row_terrain)
-    pipe_fd.send(terrain)
-    pipe_fd.close()            
+    ax.set_title(f"size =128*128*40, scale = 40, octave = (3, 2.0, 0.5), frame {idx}")           
 
 if __name__ == '__main__':
     print("start normal run")
