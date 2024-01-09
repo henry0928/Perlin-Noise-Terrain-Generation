@@ -32,8 +32,10 @@ def gradient(point) :
                  (1,0,1), (-1,0,1), (1,0,-1), (-1,0,-1), 
                  (0,1,1), (0,-1,1), (0,1,-1), (0,-1,-1)]
    # index = random.randint(1,256) % 12 
-   assert point[0] + perm[point[1]] < 512
-   index = perm[point[0] + perm[point[1]]] % 12
+   # assert point[0] + perm[point[1]] < 512
+   index = perm[perm[perm[point[0]]+point[1]]+point[2]] 
+   index = index % 12 
+   # index = perm[point[0] + perm[point[1]]] % 12
    return grad_list[index]
 
 def calculate_vector(start, end) :
